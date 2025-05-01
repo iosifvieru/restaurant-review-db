@@ -38,7 +38,7 @@ Structura tabelei "restaurants" si exemplu de document.
 */
 db.createCollection("restaurants");
 
-/* inserare documente */
+/* inserare documente  cu insertMany*/
 db.restaurants.insertMany([
     {
         id: 1,
@@ -170,3 +170,70 @@ db.restaurants.insertMany([
         nr_telefon: "0372 701 047"
     }
 ])
+
+/* inserare cu insertOne */
+db.restaurants.insertOne({   
+    id: 4,
+    nume: "Kfc",
+    tip_bucatarie: [
+        "fast-food",
+        "specific american",
+    ],
+    adresa: {
+        strada: "Strada Palas 7A",
+        oras: "Iași",
+        cod_postal: "700051"
+    },
+    program: {
+        "luni": [{open: "08:00", close: "23:45"}],
+        "marti": [{open: "08:00", close: "23:45"}],
+        "miercuri": [{open: "08:00", close: "23:45"}],
+        "joi": [{open: "08:00", close: "23:45"}],
+        "vineri": [{open: "08:00", close: "23:45"}],
+        "sambata": [{open: "08:00", close: "23:45"}],
+        "duminica": [{open: "08:00", close: "23:45"}]
+    },
+    meniu: [
+        {
+            denumire_produs: "Smart Menu",
+            pret: 25.50,
+            imagini: [
+                "./images/kfc/smart-menu-1.png",
+            ],
+        },
+        {
+            denumire_produs: "Real Burger",
+            pret: 18.0,
+            imagini: [
+                "./images/kfc/real-burger-1.png",
+                "./images/kfc/real-burger-2.png",
+                "./images/kfc/real-burger-3.png",
+            ]
+        },
+    ],
+    nr_telefon: "0749 275 431"
+});
+
+/* delete operation */
+db.restaurants.deleteOne({ nume: "Kfc" });
+
+/* update */
+/* modificare nr. telefon la un restaurant */
+db.restaurants.updateOne(
+    { nume: "Suta de grame" },
+    { $set: { nr_telefon: "0723 456 789" } }
+);
+
+/* adaugare element nou */
+db.restaurants.updateOne(
+    { nume: "McDonald's" },
+    { 
+        $push: { 
+            meniu: {
+                denumire_produs: "Apple Pie",
+                pret: 5.5,
+                imagini: ["./images/mcdo/apple-pie-1.png"]
+            }
+        } 
+    }
+);

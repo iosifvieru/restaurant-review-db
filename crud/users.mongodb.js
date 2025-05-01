@@ -62,3 +62,44 @@ db.users.insertMany([
         oras: "București"
     }
 ]);
+
+/* inserare cu insertOne */
+db.users.insertOne(
+    {
+        id: 4,
+        nume: "Gojira",
+        email: "gojiragojira@gmail.com",
+        preferinte_culinare: [
+            "pizza",
+            "pasta",
+            "carbonara",
+            "panini",
+            "hamburger",
+            "street-food",
+            "fast-food",
+            "home-made food"
+        ],
+        oras: "Țăndărei"
+    },
+);
+
+/* update */
+db.users.updateMany(
+    { oras: "Bucuresti" },
+    { $set: { oras: "București" } }
+);
+
+db.users.updateOne(
+    { id: 1 },
+    { $push: { preferinte_culinare: "supa" } }
+);
+
+db.users.updateOne(
+    { id: 3 },
+    { $set: { preferinte_culinare: ["desert", "ciocolata neagra", "fructe"] } }
+);
+
+/* delete */
+db.users.deleteOne({ id: 2 });
+
+db.users.deleteMany({ preferinte_culinare: "fast-food" });
